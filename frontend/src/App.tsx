@@ -1,14 +1,12 @@
-type Props = {
-  children?: React.ReactNode;
-};
+import useAuth from "./hooks/useAuth"
+import Landing from "./screens/Landing";
+import Whiteboard from "./screens/Whiteboard";
 
-function App({children}:Props) {
+function App() {
+  const [isLogin,token]=useAuth();
+  console.log(isLogin)
 
-  return (
-    <>
-    {children}
-    </>
-  )
+  return isLogin?<Whiteboard/>:<Landing/>
 }
 
 export default App
