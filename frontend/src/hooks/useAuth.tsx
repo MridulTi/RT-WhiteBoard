@@ -1,30 +1,41 @@
-import Keycloak from 'keycloak-js';
-import React, { useEffect, useState,useRef } from 'react'
+import { useEffect, useRef, useState } from "react";
+import Keycloak from "keycloak-js";
+import getKeycloakInstance from "../utils/keycloak";
 
 
-function useAuth() {
-    const isRun=useRef(false)
-    const [token,setToken]=useState<string|undefined>(undefined);
-    const [isLogin,setLogin]=useState<boolean>(true);
-
+const useAuth=()=>{
+    const client = getKeycloakInstance();
+    const isRun=useRef(false);
+    const [isLogin,setLogin]=useState(false);
+    
     useEffect(()=>{
-        if (isRun.current) return;
-
-        isRun.current=true;
-        const client:Keycloak=new Keycloak({
-            url:import .meta.env.VITE_KEYCLOAK_URL,
-            realm:import.meta.env.VITE_KEYCLOAK_REALM,
-            clientId:import.meta.env.VITE_KEYCLOAK_CLIENT_ID
-        });
-
-        client.init({onLoad:"login-required"})
-        .then((res:any)=>{
-            setLogin(res)
-            setToken(client.token)
-        })
+        const initKeycloak=async()=>{
+            try{
+                if (!isRun.current){
+                    isRun.current=true;
+                    await client
+                    .init({
+                        onLoad:"login-required",
+                    })
+                    .then((res)=>{
+                        setLogin(res);
+                    })
+                    .catch((err) => {
+                        console.error("Keycloak initialization failed:", err);
+                    });
+                }
+            }catch (error) {
+                console.error('Failed to initialize adapter:', error);
+            }
+        }
+        initKeycloak();
+        
     },[])
+    const logout = () => {
+        console.log("LOGOUT")
+        client.logout();
+    };
 
-    return [isLogin,token]
+    return { isLogin, logout };
 }
-
 export default useAuth
