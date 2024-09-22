@@ -50,7 +50,7 @@ Real Time Whiteboard is a collaborative web-based tool where multiple users can 
    ```
    both for frontend and backend in there respective folders
 
-   This will launch the app.
+5.  This will launch the app.
 
 ---
 
