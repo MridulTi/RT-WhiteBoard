@@ -3,9 +3,10 @@ import Login from "./pages/Login.jsx";
 import Workspace from "./pages/Workspace.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import MainLayout from "./pages/More/MainLayout.jsx";
+import { useApp } from "./context/AppContext.jsx";
 
 function App() {
-  const loggedin=false;
+  const {loggedin}=useApp();
   const router = createBrowserRouter([
     {
       path: "/",
@@ -17,7 +18,7 @@ function App() {
     },
     {
       path: "/app",
-      element: <MainLayout/>,
+      element: loggedin?<MainLayout/>:<Navigate to="/auth"/>,
       children: [
         {
           path: "/app",

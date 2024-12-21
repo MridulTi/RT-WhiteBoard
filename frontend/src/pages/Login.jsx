@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaGoogle } from "react-icons/fa6";
 import { RiLoginCircleFill } from "react-icons/ri";
+import GoogleLogin from '../components/GoogleLogin';
 
 function Login() {
   return (
@@ -19,9 +20,7 @@ function Login() {
       </div>
 
       {/* Google Login Button */}
-      <button className="flex gap-2 items-center text-sm md:text-lg hover:bg-grey-6 transition ease-in duration-200 font-bold px-4 md:px-6 py-3 md:py-4 bg-grey-8 rounded-lg border border-grey-1">
-        <FaGoogle /> Log in with Google
-      </button>
+      <GoogleLogin/>
     </div>
   );
 }

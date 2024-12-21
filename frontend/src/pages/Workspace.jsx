@@ -1,9 +1,9 @@
 import React from 'react'
 
-function SessionFile() {
+function Workspace() {
   return (
-    <div>SessionFile</div>
+    <div>Workspace</div>
   )
 }
 
-export default SessionFile
+export default Workspace
